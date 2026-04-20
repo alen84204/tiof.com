@@ -299,6 +299,7 @@
             const [showLogin, setShowLogin] = React.useState(false);
             const [passwordInput, setPasswordInput] = React.useState('');
             const [loginError, setLoginError] = React.useState(false);
+            const [isMobile, setIsMobile] = React.useState(window.innerWidth < 768);
             const t = data[lang];
 
             const exportHtml = () => {
@@ -317,8 +318,13 @@
 
             React.useEffect(() => {
                 const handleScroll = () => setIsScrolled(window.scrollY > 50);
+                const handleResize = () => setIsMobile(window.innerWidth < 768);
                 window.addEventListener(`scroll`, handleScroll);
-                return () => window.removeEventListener(`scroll`, handleScroll);
+                window.addEventListener(`resize`, handleResize);
+                return () => {
+                    window.removeEventListener(`scroll`, handleScroll);
+                    window.removeEventListener(`resize`, handleResize);
+                };
             }, []);
 
             const toggleLang = () => setLang(l => l === `zh` ? `en` : `zh`);
@@ -466,8 +472,8 @@
                     <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden">
                         <div className="absolute inset-0 z-0">
                             <img 
-                                src="KV.jpg" 
-                                className="w-full h-full object-cover scale-105"
+                                src=${isMobile ? 'KV2.jpg' : 'KV.jpg'}
+                                className="w-full h-full object-cover"
                                 alt="Ocean Hero"
                             />
                             <div className="absolute inset-0 hero-gradient"></div>
