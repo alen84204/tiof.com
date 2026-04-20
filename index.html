@@ -103,26 +103,20 @@
                 // 1. 導覽列選單 (Top Navigation)
                 // ==========================================
                 nav: [
-                    { id: `about`, label: `論壇簡介` },
-                    { id: `news`, label: `最新消息` },
-                    { id: `agenda`, label: `大會議程` },
-                    { id: `speakers`, label: `講者陣容` },
-                    { id: `gallery`, label: `活動照片` },
-                    { id: `contact`, label: `聯絡我們` }
+                    { id: `about`, label: `關於論壇` },
+                    { id: `agenda`, label: `議程介紹` },
+                    { id: `media`, label: `媒體專區` }
                 ],
                 // ==========================================
                 // 2. 新聞稿區塊 (News) - 可以在此處新增或修改最新消息
                 // ==========================================
-                news: {
-                    title: `最新消息`,
+                media: {
+                    title: `媒體專區`,
                     items: [
                         { date: `2026-04-16`, title: `2026 臺灣海洋國際論壇 (TIOF) 官網正式上線！`, link: `#` },
                         { date: `2026-04-10`, title: `論壇預計（暫定）於 7 月 8 日在台北萬豪酒店盛大開幕。`, link: `#` }
                     ]
                 },
-                // ==========================================
-                // 3. 歷年/活動照片 (Gallery) - 只要更換 url 裡面的圖片連結即可
-                // ==========================================
                 gallery: {
                     title: `活動照片`,
                     images: [
@@ -196,11 +190,8 @@
             en: {
                 nav: [
                     { id: `about`, label: `About` },
-                    { id: `news`, label: `News` },
                     { id: `agenda`, label: `Agenda` },
-                    { id: `speakers`, label: `Speakers` },
-                    { id: `gallery`, label: `Gallery` },
-                    { id: `contact`, label: `Contact` }
+                    { id: `media`, label: `Media` }
                 ],
                 news: {
                     title: `Latest News`,
@@ -291,6 +282,7 @@
             const [activeTab, setActiveTab] = React.useState('basic');
             const [editLang, setEditLang] = React.useState('zh');
             const [showLogin, setShowLogin] = React.useState(false);
+            const [isMenuOpen, setIsMenuOpen] = React.useState(false);
             const [passwordInput, setPasswordInput] = React.useState('');
             const [loginError, setLoginError] = React.useState(false);
             const t = data[lang];
@@ -434,12 +426,12 @@
                         `}
                     </${AnimatePresence}>
 
-                    <nav className=${`fixed w-full z-50 transition-all duration-300 ${isScrolled ? `py-3 glass-nav shadow-sm` : `py-6 bg-transparent`}`}>
+                    <nav className=${`fixed w-full z-50 transition-all duration-300 ${isScrolled ? `py-2 glass-nav shadow-md` : `py-5 bg-transparent`}`}>
                         <div className="container mx-auto px-6 flex justify-between items-center">
-                            <div className=${`flex items-center gap-2 font-bold text-xl tracking-tight ${isScrolled ? `text-[#202020]` : `text-white`}`}>
-                                <div className="w-10 h-10 bg-[#0085FF] rounded-lg flex items-center justify-center text-white">T</div>
+                            <a href="#hero" className=${`flex items-center gap-2 font-bold text-lg md:text-xl tracking-tight ${isScrolled ? `text-[#202020]` : `text-white`}`}>
+                                <div className="w-8 h-8 md:w-10 md:h-10 bg-[#0085FF] rounded-lg flex items-center justify-center text-white text-sm">T</div>
                                 <span>2026 臺灣國際海洋論壇</span>
-                            </div>
+                            </a>
                             
                             <div className="hidden lg:flex items-center gap-8">
                                 ${t.nav.map(item => html`
@@ -534,17 +526,17 @@
                         </div>
                     </section>
 
-                    <section id="news" className="py-24 bg-[#F8FAFC]">
+                    <section id="media" className="py-24 bg-[#F8FAFC]">
                         <div className="container mx-auto px-6">
-                            <h2 className="text-3xl font-bold mb-12 text-center">${t.news.title}</h2>
+                            <h2 className="text-3xl font-bold mb-12 text-center">${t.media.title}</h2>
                             <div className="max-w-4xl mx-auto space-y-6">
-                                ${t.news.items.map((item, i) => html`
+                                ${t.media.items.map((item, i) => html`
                                     <div key=${i} className="bg-white p-6 rounded-[16px] border border-slate-200 hover:shadow-lg transition-all flex flex-col md:flex-row md:items-center justify-between gap-4">
                                         <div className="flex flex-col md:flex-row md:items-center gap-4">
                                             <span className="text-[#0085FF] font-semibold font-mono">${item.date}</span>
                                             <h4 className="text-lg font-bold text-[#202020] hover:text-[#0085FF] transition-colors"><a href=${item.link}>${item.title}</a></h4>
                                         </div>
-                                        <a href="#contact" className="text-sm font-semibold text-slate-500 hover:text-[#0085FF] whitespace-nowrap">${lang === `zh` ? `查看內容 →` : `Read More →`}</a>
+                                        <a href="#contact-info" className="text-sm font-semibold text-slate-500 hover:text-[#0085FF] whitespace-nowrap">${lang === `zh` ? `查看內容 →` : `Read More →`}</a>
                                     </div>
                                 `)}
                             </div>
