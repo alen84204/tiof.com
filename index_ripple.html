@@ -76,9 +76,15 @@
             background: #202020;
             border-radius: 10px;
         }
-        @keyframes fadein {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+        @keyframes ripple {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+        .ripple-effect {
+            position: absolute;
+            border: 1px solid rgba(0, 133, 255, 0.3);
+            border-radius: 50%;
+            animation: ripple 4s infinite;
         }
     </style>
 </head>
@@ -287,7 +293,7 @@
             const [activeDay, setActiveDay] = React.useState(0);
             const [data, setData] = React.useState(SITE_DATA);
             const [isAdmin, setIsAdmin] = React.useState(false);
-            const [showModal, setShowModal] = React.useState(false);
+            const [showModal, setShowModal] = React.useState(true);
             const [activeTab, setActiveTab] = React.useState('basic');
             const [editLang, setEditLang] = React.useState('zh');
             const [showLogin, setShowLogin] = React.useState(false);
@@ -465,6 +471,11 @@
                                 alt="Ocean Hero"
                             />
                             <div className="absolute inset-0 hero-gradient"></div>
+                        </div>
+                        
+                        <div className="absolute inset-0 z-1 overflow-hidden pointer-events-none">
+                            <div className="ripple-effect" style=${{ top: `20%`, left: `15%`, width: `400px`, height: `400px` }}></div>
+                            <div className="ripple-effect" style=${{ top: `60%`, left: `70%`, width: `300px`, height: `300px`, animationDelay: `1s` }}></div>
                         </div>
 
                         <div className="container mx-auto px-6 relative z-10 text-center text-white">
@@ -1102,4 +1113,6 @@
             alert("網頁渲染時發生錯誤，請查看控制台或確認腳本已正確載入。");
         }
     </script>
+    <script src="https://cdn.kuse.ai/sdk.prd.js"></script>
+
 </body></html>
